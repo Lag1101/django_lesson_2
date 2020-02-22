@@ -42,9 +42,9 @@ class SignUp(CreateView):
     success_url = reverse_lazy('blog:index')
 
     def form_valid(self, form):
-        self.object = form.save()
+        res = super(SignUp, self).form_valid(form)
         login(self.request, self.object)
-        return HttpResponseRedirect(self.get_success_url())
+        return res
 
 
 
