@@ -1,23 +1,21 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import CreateView
 
 from blog.forms import CommentForm
-from blog.models import Article, Comment
+from blog.models import Article
 
 
 class IndexView(generic.ListView):
+    model = Article
     template_name = 'index.html'
-    context_object_name = 'latest_articles_list'
-
-    def get_queryset(self):
-        """Return the last five published questions."""
-        return Article.objects.order_by('-pub_date')[:5]
+    context_object_name = 'articles_list'
+    paginate_by = 3
+    ordering = ['-pub_date']
 
 
 class ArticleView(generic.DetailView):
@@ -45,14 +43,3 @@ class SignUp(CreateView):
         res = super(SignUp, self).form_valid(form)
         login(self.request, self.object)
         return res
-
-
-
-
-
-
-
-
-
-
-
