@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+# False if not in os.environ
+DEBUG = env('DEBUG')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,9 +31,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'mp&4d-9%ks$4wqk2lsvy!vd7c57aiv+1=+(p-5%f#q&f11zx7-'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -80,10 +86,7 @@ WSGI_APPLICATION = 'django_lesson.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': os.environ.get('DATABASE_URL'),
-    }
+    'default': env.db(),
 }
 
 
