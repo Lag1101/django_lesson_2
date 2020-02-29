@@ -11,7 +11,7 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h2 class="card-title">{{ article.header }}</h2>
-                            <p>{{ article.pub_date }}</p>
+                            <p>Posted {{ article.pub_date|date }} by {{ article.user }}</p>
                             <p class="card-text">{{ article.markup|safe }}</p>
                             <a href="{% url 'blog:article' article.id %}" class="btn btn-primary">Read More &rarr;</a>
                         </div>

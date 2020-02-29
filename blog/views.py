@@ -41,6 +41,7 @@ class NewComment(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.article = get_object_or_404(Article, *self.args, **self.kwargs)
+        form.instance.user = self.request.user
         return super(NewComment, self).form_valid(form)
 
 

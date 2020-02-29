@@ -2,46 +2,37 @@
 
 {% block content %}
     <div class="container">
+        <!-- Post Content Column -->
+        <div class="card">
 
-        <div class="row">
+            <!-- Title -->
+            <h4 class="card-header text-left">{{ article.header }}</h4>
 
-            <!-- Post Content Column -->
-            <div class="col-lg-12">
-
-                <!-- Title -->
-                <h1 class="mt-4">{{ article.header }}</h1>
-
-                <!-- Date/Time -->
-                <p>Posted on {{ article.pub_date }}</p>
-
-                <hr>
-
-                {{ article.markdown|safe }}
-
-                <hr>
-
-                <!-- Comments Form -->
-                <div class="card my-4">
-                    <div class="card-body">
-                        <a href="{% url 'blog:new_comment' article.id %}" class="btn btn-primary">Leave a Comment
-                            &rarr;</a>
-                    </div>
+            <div class="card-body">
+                <div class="card-text">
+                    {{ article.markdown|safe }}
                 </div>
-
-                <ul>
-                    {% for comment in article.comment_set.all %}
-                        <li>
-                            <div class="media mb-4">
-                                <div class="media-body">
-                                    {{ comment.text }}
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
             </div>
+            <!-- Date/Time -->
+            <div class="card-footer">Posted on {{ article.pub_date }}</div>
         </div>
-        <!-- /.row -->
+
+        <div class="mb-3">
+            <a href="{% url 'blog:new_comment' article.id %}" class="btn btn-primary">Leave a Comment&rarr;</a>
+        </div>
+        <!-- Comments Form -->
+
+        {% for comment in article.comment_set.all %}
+            <div class="card">
+                <div class="card-header">
+                    {{ comment.user }}
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-left">{{ comment.text }}</p>
+                </div>
+                <div class="card-footer">Posted on {{ article.pub_date }}</div>
+            </div>
+        {% endfor %}
 
     </div>
 {% endblock %}
