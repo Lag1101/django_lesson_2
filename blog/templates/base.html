@@ -41,9 +41,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link" href="{% url "blog:new_article" %}">New Article</a>#}
-{#                    </li>#}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "blog:new_article" %}">New Article</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url "blog:logout" %}">Logout</a>
                     </li>

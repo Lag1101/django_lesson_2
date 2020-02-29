@@ -24,13 +24,13 @@
 
         {% for comment in article.comment_set.all %}
             <div class="card">
-{#                <div class="card-header">#}
-{#                    {{ comment.user }}#}
-{#                </div>#}
+                <div class="card-header">
+                    {{ comment.user }}
+                </div>
                 <div class="card-body">
                     <p class="card-text text-left">{{ comment.text }}</p>
                 </div>
-                <div class="card-footer">Posted on {{ article.pub_date }}</div>
+                <div class="card-footer">Posted on {{ comment.pub_date }}</div>
             </div>
         {% endfor %}
 
