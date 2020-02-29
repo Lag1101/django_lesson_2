@@ -5,27 +5,35 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView
 
-from blog.forms import CommentForm, ArticleForm
+from blog.forms import CommentForm#, ArticleForm
 from blog.models import Article
 
 
 class IndexView(ListView):
-    model = Article
     template_name = 'index.html'
     context_object_name = 'articles_list'
-    paginate_by = 3
-    ordering = ['-pub_date']
+
+    def get_queryset(self):
+        """Return the last five published questions."""
+        return Article.objects.order_by('-pub_date')[:5]
+
+# class IndexView(ListView):
+#     model = Article
+#     template_name = 'index.html'
+#     context_object_name = 'articles_list'
+#     paginate_by = 3
+#     ordering = ['-pub_date']
 
 
-class NewArticle(LoginRequiredMixin, CreateView):
-    form_class = ArticleForm
-    template_name = 'new_article.html'
-    login_url = reverse_lazy('blog:login')
-    redirect_field_name = REDIRECT_FIELD_NAME
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(NewArticle, self).form_valid(form)
+# class NewArticle(LoginRequiredMixin, CreateView):
+#     form_class = ArticleForm
+#     template_name = 'new_article.html'
+#     login_url = reverse_lazy('blog:login')
+#     redirect_field_name = REDIRECT_FIELD_NAME
+#
+#     def form_valid(self, form):
+#         form.instance.user = self.request.user
+#         return super(NewArticle, self).form_valid(form)
 
 
 class ArticleView(DetailView):
@@ -41,7 +49,7 @@ class NewComment(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.article = get_object_or_404(Article, *self.args, **self.kwargs)
-        form.instance.user = self.request.user
+        # form.instance.user = self.request.user
         return super(NewComment, self).form_valid(form)
 
 

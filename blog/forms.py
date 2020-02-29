@@ -14,17 +14,17 @@ class CommentForm(forms.ModelForm):
             })
         }
 
-
-class ArticleForm(forms.ModelForm):
-    class Meta:
-        model = Article
-        fields = ['header', 'markdown']
-        widgets = {
-            'header': forms.TextInput(attrs={
-                'class': 'form-control'
-            }),
-            'markdown': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 15
-            })
-        }
+#
+# class ArticleForm(forms.ModelForm):
+#     class Meta:
+#         model = Article
+#         fields = ['header', 'markdown']
+#         widgets = {
+#             'header': forms.TextInput(attrs={
+#                 'class': 'form-control'
+#             }),
+#             'markdown': forms.Textarea(attrs={
+#                 'class': 'form-control',
+#                 'rows': 15
+#             })
+#         }
