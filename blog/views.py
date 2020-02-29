@@ -1,4 +1,4 @@
-from django.contrib.auth import REDIRECT_FIELD_NAME, login
+from django.contrib.auth import REDIRECT_FIELD_NAME, login, get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
@@ -55,3 +55,23 @@ class SignUp(CreateView):
         res = super(SignUp, self).form_valid(form)
         login(self.request, self.object)
         return res
+
+
+class PersonView(DetailView):
+    model = get_user_model()
+    template_name = 'person.html'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

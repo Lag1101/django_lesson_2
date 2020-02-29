@@ -14,5 +14,19 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
 
     path('signup/', views.SignUp.as_view(), name='signup'),
+
+    path('person/<int:pk>/', views.PersonView.as_view(), name='person')
 ]
+
+
+
+
+
+
+
+
+
+
+
+
 

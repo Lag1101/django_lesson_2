@@ -25,7 +25,7 @@
         {% for comment in article.comment_set.all %}
             <div class="card">
                 <div class="card-header">
-                    {{ comment.user }}
+                    <a href="{% url "blog:person" comment.user.id %}" class="nav-link">{{ comment.user }}</a>
                 </div>
                 <div class="card-body">
                     <p class="card-text text-left">{{ comment.text }}</p>

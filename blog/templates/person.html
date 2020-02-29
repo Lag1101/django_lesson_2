@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <!-- Post Content Column -->
+        <div class="card">
+            <!-- Title -->
+            <h4 class="card-header text-left">{{ user }}</h4>
+
+            <div class="card-body">
+                {% for article in user.article_set.all %}
+                    <div class="card">
+                        <div class="card-header">
+                            <a href="{% url 'blog:article' article.id %}">{{ article.header }}</a>
+                        </div>
+                        <div class="card-footer">
+                            {{ article.pub_date }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
