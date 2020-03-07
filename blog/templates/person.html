@@ -6,14 +6,16 @@
         <div class="card">
             <!-- Title -->
 {#            <h4 class="card-header text-left">{{ person }}</h4>#}
-            <h4 class="card-header text-left">{{ user }}</h4>
+            <h4 class="card-header text-left">{{ person }}</h4>
 
 {#            {% if person.profile.avatar %}#}
 {#                <img class="card-img-top" src="{{ person.profile.avatar.url }}" alt="">#}
 {#            {% endif %}#}
             <div class="card-body">
 {#                {% for article in person.article_set.all %}#}
-                {% for article in user.article_set.all %}
+
+                <h2>Статьи</h2>
+                {% for article in person.article_set.all %}
                     <div class="card">
                         <div class="card-header">
                             <a href="{% url 'blog:article' article.id %}">{{ article.header }}</a>
@@ -23,8 +25,20 @@
                         </div>
                     </div>
                 {% endfor %}
+
+                <h2>Коментарии</h2>
+                {% for comment in person.comment_set.all %}
+                    <div class="card">
+                        <div class="card-header">
+                            <a href="{% url 'blog:article' comment.article.id %}">{{ comment.text }}</a>
+                        </div>
+                        <div class="card-footer">
+                            {{ comment.pub_date }}
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-{#            {% if person.id == user.id %}#}
+{#            {% if person.id == person.id %}#}
 {#                <div class="card-footer">#}
 {#                    <a href="{% url 'blog:person_edit' person.profile.id %}" class="btn btn-primary">Edit</a>#}
 {#                </div>#}

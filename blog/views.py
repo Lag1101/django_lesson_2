@@ -71,7 +71,7 @@ class SignUp(CreateView):
 class PersonView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'person.html'
-    # context_object_name = 'person'
+    context_object_name = 'person'
 
     # login_url = reverse_lazy('blog:login')
     # redirect_field_name = REDIRECT_FIELD_NAME
