@@ -3,7 +3,7 @@ from django import forms
 from .models import (
     Comment,
     Article,
-    # Profile
+    Profile
 )
 
 
@@ -34,7 +34,7 @@ class ArticleForm(forms.ModelForm):
         }
 
 
-# class ProfileForm(forms.ModelForm):
-#     class Meta:
-#         model = Profile
-#         fields = ['avatar']
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar']

@@ -3,17 +3,17 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
 from blog.forms import (
     CommentForm,
     ArticleForm,
-    # ProfileForm
+    ProfileForm
 )
 from blog.models import (
     Article,
-    # Profile,
+    Profile,
     Comment
 )
 
@@ -49,10 +49,9 @@ class NewComment(LoginRequiredMixin, CreateView):
     redirect_field_name = REDIRECT_FIELD_NAME
 
     def form_valid(self, form):
-        form.instance.article = get_object_or_404(Article, *self.args, **self.kwargs)
-        # form.instance.article = get_object_or_404(Article, pk=self.kwargs['pk'])
-        # if 'comment_key' in self.kwargs:
-        #     form.instance.parent_comment = get_object_or_404(Comment, pk=self.kwargs['comment_key'])
+        form.instance.article = get_object_or_404(Article, pk=self.kwargs['pk'])
+        if 'comment_key' in self.kwargs:
+            form.instance.parent_comment = get_object_or_404(Comment, pk=self.kwargs['comment_key'])
         form.instance.user = self.request.user
         return super(NewComment, self).form_valid(form)
 
@@ -77,15 +76,18 @@ class PersonView(LoginRequiredMixin, DetailView):
     # redirect_field_name = REDIRECT_FIELD_NAME
 
 
-# class PersonEditView(LoginRequiredMixin, UpdateView):
-#     model = Profile
-#     form_class = ProfileForm
-#     template_name = 'person_edit.html'
-#
-#     login_url = reverse_lazy('blog:login')
-#     redirect_field_name = REDIRECT_FIELD_NAME
-#
-#     def dispatch(self, *args, **kwargs):
-#         if self.kwargs['pk'] != self.request.user.pk:
-#             raise PermissionDenied
-#         return super(PersonEditView, self).dispatch(*args, **kwargs)
+class PersonEditView(LoginRequiredMixin, UpdateView):
+    model = Profile
+    form_class = ProfileForm
+    template_name = 'person_edit.html'
+
+    login_url = reverse_lazy('blog:login')
+    redirect_field_name = REDIRECT_FIELD_NAME
+
+    def get_success_url(self):
+        return reverse('blog:person', kwargs=self.kwargs)
+
+    # def dispatch(self, *args, **kwargs):
+    #     if self.kwargs['pk'] != self.request.user.pk:
+    #         raise PermissionDenied
+    #     return super(PersonEditView, self).dispatch(*args, **kwargs)

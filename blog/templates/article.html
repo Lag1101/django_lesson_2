@@ -28,19 +28,16 @@
         <!-- Comments Form -->
 
         {% for comment in article.comment_set.all %}
-{#            {% if not comment.parent_comment %}#}
-{#                {% include 'comment.html' %}#}
-{#            {% endif %}#}
-            <div class="card">
-                <div class="card-header">
-                    <a href="{% url "blog:person" comment.user.id %}" class="nav-link">{{ comment.user }}</a>
-                </div>
-                <div class="card-body">
-                    <p class="card-text text-left">{{ comment.text }}</p>
-                </div>
-                <div class="card-footer">Posted on {{ comment.pub_date }}</div>
-            </div>
+            {% if not comment.parent_comment %}
+                {% include 'comment.html' %}
+            {% endif %}
         {% endfor %}
 
     </div>
 {% endblock %}
+
+
+
+
+
+

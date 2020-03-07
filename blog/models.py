@@ -28,7 +28,7 @@ class Article(models.Model):
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    # parent_comment = models.ForeignKey('Comment', on_delete=models.CASCADE, blank=True, null=True)
+    parent_comment = models.ForeignKey('Comment', on_delete=models.CASCADE, blank=True, null=True)
     text = models.TextField()
     likes = models.IntegerField(default=0)
     pub_date = models.DateTimeField('date published', default=timezone.now)

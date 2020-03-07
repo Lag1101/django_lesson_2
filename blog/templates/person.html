@@ -5,16 +5,16 @@
         <!-- Post Content Column -->
         <div class="card">
             <!-- Title -->
-            <div class="card-header d-flex">
-                {% if person.profile.avatar %}
-                    <img class="card-img-top avatar" src="{{ person.profile.avatar.url }}" alt="">
-                {% endif %}
-                <h4>{{ person }}</h4>
+            <div class="card-header span3 well">
+                <center>
+                    {% if person.profile.avatar %}
+                        <img src="{{ person.profile.avatar.url }}" name="aboutme" width="140" height="140" class="rounded mx-auto d-block">
+                    {% endif %}
+                    <h3>{{ person }}</h3>
+                </center>
             </div>
 
             <div class="card-body">
-{#                {% for article in person.article_set.all %}#}
-
                 <h2>Статьи</h2>
                 {% for article in person.article_set.all %}
                     <div class="card">
@@ -39,11 +39,11 @@
                     </div>
                 {% endfor %}
             </div>
-{#            {% if person.id == person.id %}#}
-{#                <div class="card-footer">#}
-{#                    <a href="{% url 'blog:person_edit' person.profile.id %}" class="btn btn-primary">Edit</a>#}
-{#                </div>#}
-{#            {% endif %}#}
+            {% if person.id == person.id %}
+                <div class="card-footer">
+                    <a href="{% url 'blog:person_edit' person.profile.id %}" class="btn btn-primary">Edit</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
