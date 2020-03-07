@@ -39,9 +39,9 @@
                     </div>
                 {% endfor %}
             </div>
-            {% if person.id == person.id %}
+            {% if user.id == person.id %}
                 <div class="card-footer">
-                    <a href="{% url 'blog:person_edit' person.profile.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'blog:person_edit' user.profile.id %}" class="btn btn-primary">Edit</a>
                 </div>
             {% endif %}
         </div>

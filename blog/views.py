@@ -87,7 +87,7 @@ class PersonEditView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('blog:person', kwargs=self.kwargs)
 
-    # def dispatch(self, *args, **kwargs):
-    #     if self.kwargs['pk'] != self.request.user.pk:
-    #         raise PermissionDenied
-    #     return super(PersonEditView, self).dispatch(*args, **kwargs)
+    def dispatch(self, *args, **kwargs):
+        if self.kwargs['pk'] != self.request.user.pk:
+            raise PermissionDenied
+        return super(PersonEditView, self).dispatch(*args, **kwargs)
