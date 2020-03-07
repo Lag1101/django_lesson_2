@@ -3,7 +3,7 @@ from django.contrib import admin
 from blog.models import (
     Article,
     Comment,
-    # Profile,
+    Profile,
 )
 
 
@@ -16,9 +16,9 @@ class ArticleAdmin(admin.ModelAdmin):
     inlines = [CommentsInline]
 
 
-# class ProfileAdmin(admin.ModelAdmin):
-#     pass
-#
+class ProfileAdmin(admin.ModelAdmin):
+    pass
+
 
 admin.site.register(Article, ArticleAdmin)
-# admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Profile, ProfileAdmin)
