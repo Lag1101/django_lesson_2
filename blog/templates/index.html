@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
     <div class="container">
         <div class="row">
@@ -11,6 +10,12 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h2 class="card-title">{{ article.header }}</h2>
+{#                            {% if article.user.profile.avatar %}#}
+{#                                <span>#}
+{#                                    <img class="avatar" src="{{ article.user.profile.avatar.url }}" alt="">#}
+{#                                </span>#}
+{#                            {% endif %}#}
+{#                            <p>Posted {{ article.pub_date }} by <a href="{% url "blog:person" article.user.id %}"> {{ article.user }}</a></p>#}
                             <p>Posted {{ article.pub_date }} by {{ article.user }}</p>
                             <p class="card-text">{{ article.markup|safe }}</p>
                             <a href="{% url 'blog:article' article.id %}" class="btn btn-primary">Read More &rarr;</a>

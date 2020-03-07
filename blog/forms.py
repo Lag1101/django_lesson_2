@@ -1,6 +1,10 @@
 from django import forms
 
-from .models import Comment, Article
+from .models import (
+    Comment,
+    Article,
+    # Profile
+)
 
 
 class CommentForm(forms.ModelForm):
@@ -28,3 +32,9 @@ class ArticleForm(forms.ModelForm):
                 'rows': 15
             })
         }
+
+
+# class ProfileForm(forms.ModelForm):
+#     class Meta:
+#         model = Profile
+#         fields = ['avatar']

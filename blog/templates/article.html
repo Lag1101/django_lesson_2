@@ -6,7 +6,9 @@
         <div class="card">
 
             <!-- Title -->
-            <h4 class="card-header text-left">{{ article.header }}</h4>
+            <div class="card-header d-flex">
+                <h4>{{ article.header }}</h4>
+            </div>
 
             <div class="card-body">
                 <div class="card-text">
@@ -14,7 +16,10 @@
                 </div>
             </div>
             <!-- Date/Time -->
-            <div class="card-footer">Posted on {{ article.pub_date }}</div>
+            <div class="card-footer d-flex">
+                <p>Posted {{ article.pub_date }} by <a
+                        href="{% url "blog:person" article.user.id %}"> {{ article.user }}</a></p>
+            </div>
         </div>
 
         <div class="mb-3">
@@ -23,6 +28,9 @@
         <!-- Comments Form -->
 
         {% for comment in article.comment_set.all %}
+{#            {% if not comment.parent_comment %}#}
+{#                {% include 'comment.html' %}#}
+{#            {% endif %}#}
             <div class="card">
                 <div class="card-header">
                     <a href="{% url "blog:person" comment.user.id %}" class="nav-link">{{ comment.user }}</a>

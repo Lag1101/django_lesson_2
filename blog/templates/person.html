@@ -5,9 +5,14 @@
         <!-- Post Content Column -->
         <div class="card">
             <!-- Title -->
+{#            <h4 class="card-header text-left">{{ person }}</h4>#}
             <h4 class="card-header text-left">{{ user }}</h4>
 
+{#            {% if person.profile.avatar %}#}
+{#                <img class="card-img-top" src="{{ person.profile.avatar.url }}" alt="">#}
+{#            {% endif %}#}
             <div class="card-body">
+{#                {% for article in person.article_set.all %}#}
                 {% for article in user.article_set.all %}
                     <div class="card">
                         <div class="card-header">
@@ -19,6 +24,11 @@
                     </div>
                 {% endfor %}
             </div>
+{#            {% if person.id == user.id %}#}
+{#                <div class="card-footer">#}
+{#                    <a href="{% url 'blog:person_edit' person.profile.id %}" class="btn btn-primary">Edit</a>#}
+{#                </div>#}
+{#            {% endif %}#}
         </div>
     </div>
 {% endblock %}

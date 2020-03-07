@@ -1,13 +1,21 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME, login, get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
-from blog.forms import CommentForm, ArticleForm
-from blog.models import Article
+from blog.forms import (
+    CommentForm,
+    ArticleForm,
+    # ProfileForm
+)
+from blog.models import (
+    Article,
+    # Profile,
+    Comment
+)
 
 
 class IndexView(ListView):
@@ -42,6 +50,9 @@ class NewComment(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.article = get_object_or_404(Article, *self.args, **self.kwargs)
+        # form.instance.article = get_object_or_404(Article, pk=self.kwargs['pk'])
+        # if 'comment_key' in self.kwargs:
+        #     form.instance.parent_comment = get_object_or_404(Comment, pk=self.kwargs['comment_key'])
         form.instance.user = self.request.user
         return super(NewComment, self).form_valid(form)
 
@@ -57,21 +68,24 @@ class SignUp(CreateView):
         return res
 
 
-class PersonView(DetailView):
+class PersonView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'person.html'
+    # context_object_name = 'person'
+
+    # login_url = reverse_lazy('blog:login')
+    # redirect_field_name = REDIRECT_FIELD_NAME
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+# class PersonEditView(LoginRequiredMixin, UpdateView):
+#     model = Profile
+#     form_class = ProfileForm
+#     template_name = 'person_edit.html'
+#
+#     login_url = reverse_lazy('blog:login')
+#     redirect_field_name = REDIRECT_FIELD_NAME
+#
+#     def dispatch(self, *args, **kwargs):
+#         if self.kwargs['pk'] != self.request.user.pk:
+#             raise PermissionDenied
+#         return super(PersonEditView, self).dispatch(*args, **kwargs)

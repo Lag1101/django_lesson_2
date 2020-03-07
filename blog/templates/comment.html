@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header d-flex">
+        {% if comment.user.profile.avatar %}
+            <img class="avatar" src="{{ comment.user.profile.avatar.url }}" alt="">
+        {% endif %}
+        <a href="{% url "blog:person" comment.user.id %}" class="nav-link">{{ comment.user }}</a>
+    </div>
+
+    <div class="card-body">
+        <p class="card-text text-left">{{ comment.text }}</p>
+
+        <div class="mb-3">
+            <a href="{% url 'blog:new_sub_comment' article.id comment.id %}" class="btn btn-sm btn-outline-secondary">comment&rarr;</a>
+        </div>
+
+        {% for sub in comment.comment_set.all %}
+            {% include 'comment.html' with comment=sub %}
+        {% endfor %}
+    </div>
+    <div class="card-footer">Posted on {{ comment.pub_date }}</div>
+</div>
